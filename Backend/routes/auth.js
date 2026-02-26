@@ -1,10 +1,11 @@
 import express from "express";
-import { Register } from "../controllers/auth.js";
+import { Register, Login } from "../controllers/auth.js";
 import Validate from "../middleware/validate.js";
 import { check } from "express-validator";
 
 const router = express.Router();
 
+// POST auth/register
 router.post(
     "/register",
 
@@ -21,5 +22,22 @@ router.post(
     Validate,
     Register
 );
+
+// POST auth/login
+router.post(
+    "/login",
+    check("username")
+        .not()
+        .isEmpty()
+        .withMessage("Please enter a valid username")
+        .trim()
+        .escape(),
+    check("password")
+        .notEmpty()
+        .withMessage("Please enter a password"),
+    Validate,
+    Login
+)
+
 
 export default router;

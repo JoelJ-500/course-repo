@@ -1,22 +1,19 @@
 import { pool } from "../config/db.js";
 import bcrypt from "bcrypt"
 
-/**
- * @route POST auth/register
- */
+// POST auth/register
 
 export async function Register(req, res) {
     let { username, password } = req.body;
 
     username = username.toLowerCase();
 
-    console.log(username);
-
     try {
         const [existingUsers] = await pool.execute(
             `SELECT * FROM Users WHERE username = '${username}'`
         );
 
+        //existingUsers is empty if the user is not already registered
         if (existingUsers.length > 0) {
             return res.status(400).json({ 
                 status: "failed",
@@ -25,6 +22,7 @@ export async function Register(req, res) {
             });
         }
         
+        //hash the password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -39,6 +37,55 @@ export async function Register(req, res) {
         });
     } catch (err) {
         console.error(err);
+        res.status(500).json({
+            status: "error",
+            code: 500,
+            data: [],
+            message: "Internal Server Error",
+        });
+    }
+}
+
+// POST auth/login
+
+export async function Login(req, res) {
+    const { username, password } = req.body;
+    
+    try {
+        const [users] = await pool.execute(
+            `SELECT user_id, username, password_hash, created_at FROM Users WHERE username = '${username}'` 
+        );
+
+        if (users.length === 0) {
+            return res.status(401).json({
+                status: "failed",
+                data: [],
+                message: "Invalid email or password."
+            });
+        }
+
+        const user = users[0];
+
+        const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                status: "failed",
+                data: [],
+                message: "Invalid email or password."
+            });
+        }
+
+        //remove the password from the user data
+        const { password_hash, ...user_data} = user;
+
+        res.status(200).json({
+            status: "success",
+            data: [user_data],
+            message: "You have successfully logged in."
+        })
+    } catch (err) {
+        console.error("Login Error:", err);
         res.status(500).json({
             status: "error",
             code: 500,
