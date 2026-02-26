@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS `Users`;
-
-CREATE TABLE `Users` (
+CREATE TABLE IF NOT EXISTS `Users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password_hash` varchar(255) DEFAULT NULL,
@@ -9,9 +7,7 @@ CREATE TABLE `Users` (
   UNIQUE KEY `Users_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='List of users';
 
-DROP TABLE IF EXISTS `Courses`;
-
-CREATE TABLE `Courses` (
+CREATE TABLE IF NOT EXISTS `Courses` (
   `course_id` int(11) NOT NULL AUTO_INCREMENT,
   `course_code` varchar(20) DEFAULT NULL,
   `course_title` varchar(100) DEFAULT NULL,
@@ -21,9 +17,7 @@ CREATE TABLE `Courses` (
   PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='List of courses';
 
-DROP TABLE IF EXISTS `CourseFiles`;
-
-CREATE TABLE `CourseFiles` (
+CREATE TABLE IF NOT EXISTS `CourseFiles` (
   `file_id` int(11) NOT NULL AUTO_INCREMENT,
   `course_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -39,9 +33,7 @@ CREATE TABLE `CourseFiles` (
   CONSTRAINT `CourseFiles_Users_FK` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Uploaded course files';
 
-DROP TABLE IF EXISTS `SavedItems`;
-
-CREATE TABLE `SavedItems` (
+CREATE TABLE IF NOT EXISTS `SavedItems` (
   `saved_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
