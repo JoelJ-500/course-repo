@@ -17,7 +17,7 @@ export const initDB = async () => {
         await con.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME};`);
         await con.query(`USE ${DB_NAME};`);
 
-        const schemaPath = path.join(import.meta.dirname, '../CP476.sql');
+        const schemaPath = new URL('../CP476.sql', import.meta.url);
         const schema = fs.readFileSync(schemaPath, 'utf8');
         await con.query(schema);
 
