@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CourseRepo - Course</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <nav class="left">
+      <a class="nav-item" href="index.html" aria-label="Home">
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V21h14V9.8"/></svg>
+        </span>
+        <span class="label">Home</span>
+      </a>
+
+      <a class="nav-item" href="saved.html">
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        </span>
+        <span class="label">Saved content</span>
+      </a>
+
+      <a class="nav-item" href="add-course.html">
+        <span class="icon green" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
+        </span>
+        <span class="label">Add new course</span>
+      </a>
+    </nav>
+
+    <div class="right">
+      <span class="user" data-user>null</span>
+      <a href="login.html" onclick="localStorage.removeItem('cr_user');">Sign out</a>
+    </div>
+  </header>
+
+  <main class="container wide" style="position:relative;">
+    <div class="save-course">
+      <div class="bookmark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+      </div>
+      <div class="small">Save Course</div>
+    </div>
+
+    <section class="course-hero">
+      <h1 class="course-title">[Course Code]- <span style="font-weight:500">Course Title</span></h1>
+      <div class="sub">[Professor]</div>
+      <div class="sub">[University]</div>
+
+      <div class="difficulty">
+        <div class="label">[Difficulty] <span class="muted" style="font-size:18px;">Hard-Easy</span></div>
+        <div class="stars" data-stars>
+          <span class="star" aria-label="1 star"><svg viewBox="0 0 24 24"><path d="M12 2l3.2 6.8L23 9.7l-5.6 5.4L18.7 23 12 19.3 5.3 23l1.3-7.9L1 9.7l7.8-0.9z"/></svg></span>
+          <span class="star" aria-label="2 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.2 6.8L23 9.7l-5.6 5.4L18.7 23 12 19.3 5.3 23l1.3-7.9L1 9.7l7.8-0.9z"/></svg></span>
+          <span class="star" aria-label="3 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.2 6.8L23 9.7l-5.6 5.4L18.7 23 12 19.3 5.3 23l1.3-7.9L1 9.7l7.8-0.9z"/></svg></span>
+          <span class="star" aria-label="4 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.2 6.8L23 9.7l-5.6 5.4L18.7 23 12 19.3 5.3 23l1.3-7.9L1 9.7l7.8-0.9z"/></svg></span>
+          <span class="star" aria-label="5 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.2 6.8L23 9.7l-5.6 5.4L18.7 23 12 19.3 5.3 23l1.3-7.9L1 9.7l7.8-0.9z"/></svg></span>
+        </div>
+
+        <div class="add-rating">
+          <span class="plus-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
+          </span>
+          <span>Add Difficulty Rating</span>
+        </div>
+      </div>
+
+      <div class="sub muted" style="font-size:20px; margin-top:8px;">[Date updated]</div>
+    </section>
+
+    <div class="hr"></div>
+
+    <section class="section">
+      <h3>Course Outlines</h3>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP476A_Daraghmeh_W26 - Ver3</a></td>
+            <td class="date-col">10-01-2026</td>
+            <td class="save-col"></td>
+          </tr>
+          <tr>
+            <td>…….</td>
+            <td class="date-col"></td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="upload-row">
+        <div class="bigplus">+</div>
+        <a href="#" data-open-upload data-with-description="false">Upload new file</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Midterm(s)</h3>
+
+      <div style="font-size:18px; margin:8px 0 6px;"><u>Real Midterm</u></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP164 W2022 Midterm</a></td>
+            <td class="date-col">10-04-2022</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="upload-row"><div class="bigplus">+</div><a href="#" data-open-upload data-with-description="false">Upload new file</a></div>
+
+      <div style="font-size:18px; margin:18px 0 6px;"><u>Mock Midterm</u></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP164 W2022 Mock</a></td>
+            <td class="date-col">20-03-2022</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="upload-row"><div class="bigplus">+</div><a href="#" data-open-upload data-with-description="false">Upload new file</a></div>
+
+      <div style="font-size:18px; margin:18px 0 6px;"><u>Real Midterm</u></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP164 W2022 Review</a></td>
+            <td class="date-col">10-04-2022</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="upload-row"><div class="bigplus">+</div><a href="#" data-open-upload data-with-description="false">Upload new file</a></div>
+    </section>
+
+    <section class="section">
+      <h3>Final Exam(s)</h3>
+
+      <div style="font-size:18px; margin:8px 0 6px;"><u>Real Midterm</u></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP164 W2022 Midterm</a></td>
+            <td class="date-col">10-04-2022</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="font-size:18px; margin:18px 0 6px;"><u>Mock Midterm</u></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP164 W2022 Mock</a></td>
+            <td class="date-col">20-03-2022</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="font-size:18px; margin:18px 0 6px;"><u>Real Midterm</u></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><a href="#">Filename with link to file</a></td>
+            <td class="date-col">DD - MM - YYYY</td>
+            <td class="save-col">(Save Icon)</td>
+          </tr>
+          <tr>
+            <td><a href="#">Eg: CP164 W2022 Midterm</a></td>
+            <td class="date-col">10-04-2022</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="upload-row"><div class="bigplus">+</div><a href="#" data-open-upload data-with-description="false">Upload new file</a></div>
+    </section>
+
+    <section class="section">
+      <h3>Misc. Items</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th><a href="#">Filename with link to file</a></th>
+            <th>Description</th>
+            <th class="date-col">DD - MM - YYYY</th>
+            <th class="save-col">(Save Icon)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#">Data Structures Cheatsheet</a></td>
+            <td>Brief overview of all ds</td>
+            <td class="date-col">18-03-2020</td>
+            <td class="save-col"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="upload-row"><div class="bigplus">+</div><a href="#" data-open-upload data-with-description="true">Upload new file</a></div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" data-modal-overlay aria-hidden="true">
+    <div class="modal" data-modal role="dialog" aria-modal="true">
+      <div class="topline">
+        <button class="close" type="button" aria-label="Close" data-close-modal>×</button>
+      </div>
+      <div class="muted" data-modal-title style="text-align:center; margin-top:-10px; margin-bottom:10px;">Upload new file</div>
+
+      <form data-upload-form>
+        <div class="row">
+          <div class="label-right">File Location:</div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn" type="button" style="padding:8px 12px;">Upload from device</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label-right"></div>
+          <input type="text" placeholder="File address" />
+        </div>
+
+        <div class="row">
+          <div class="label-right">File Name:</div>
+          <input type="text" placeholder="Default: uploaded file name" />
+        </div>
+
+        <div class="row" data-desc-row>
+          <div class="label-right">Description:</div>
+          <textarea placeholder="Description of file"></textarea>
+        </div>
+
+        <div class="upload-btn">
+          <button class="btn" type="submit" style="min-width:160px; justify-content:center;">UPLOAD</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CourseRepo - Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <nav class="left">
+      <a class="nav-item" href="index.html" aria-label="Home">
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V21h14V9.8"/></svg>
+        </span>
+        <span class="label">Home</span>
+      </a>
+
+      <a class="nav-item" href="saved.html">
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        </span>
+        <span class="label">Saved content</span>
+      </a>
+
+      <a class="nav-item" href="add-course.html">
+        <span class="icon green" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
+        </span>
+        <span class="label">Add new course</span>
+      </a>
+    </nav>
+
+    <div class="right">
+      <span class="user" data-user>null</span>
+      <a href="login.html" onclick="logout(event);">Sign out</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="title">CourseRepo<span class="muted" style="font-size:20px">(Logo)</span></h1>
+
+      <div class="searchbar" role="search">
+        <input data-home-search type="text" placeholder="Search CourseRepo for a course. Enter a course code or name to get started" aria-label="Search courses" />
+      </div>
+
+      <div class="two-col">
+        <div>
+          <h2 class="section-title">Recently Viewed</h2>
+          <div class="card-table">
+            <div class="head"><span>Course Code -</span><span>Professor</span></div>
+            <div class="row">
+              <div><span class="course-code">CP476</span> - <span style="font-style:italic">Mustafa Daraghmeh</span></div>
+              <div class="course-title">Internet Computing</div>
+            </div>
+            <div class="row"><span class="muted">….</span></div>
+            <div class="row"><span class="muted">….</span></div>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="section-title">Saved Courses</h2>
+          <div class="card-table">
+            <div class="head"><span>Course Code -</span><span>Professor</span></div>
+            <div class="row">
+              <div><span class="course-code">CP476</span> - <span style="font-style:italic">Mustafa Daraghmeh</span></div>
+              <div class="course-title">Internet Computing</div>
+            </div>
+            <div class="row">
+              <div><span class="course-code">CS50</span> - <span style="font-style:italic">David J. Malan</span></div>
+              <div class="course-title">Introduction to Computer Science</div>
+            </div>
+            <div class="row"><span class="muted">….</span></div>
+          </div>
+          <div class="center-link">
+            <a href="saved.html">View all saved courses and materials</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CourseRepo - File Upload (No Description)</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="container" style="display:flex; justify-content:center;">
+    <div class="modal" style="position:relative;">
+      <div class="topline" style="position:absolute; right:10px; top:10px;">
+        <a class="close" href="course.html" aria-label="Close" style="text-decoration:none;">×</a>
+      </div>
+      <div class="muted" style="text-align:center; margin-top:10px; margin-bottom:10px;">Upload new file</div>
+
+      <form>
+        <div class="row">
+          <div class="label-right">File Location:</div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn" type="button" style="padding:8px 12px;">Upload from device</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label-right"></div>
+          <input type="text" placeholder="File address" />
+        </div>
+
+        <div class="row">
+          <div class="label-right">File Name:</div>
+          <input type="text" placeholder="Default: uploaded file name" />
+        </div>
+
+        <div class="upload-btn">
+          <button class="btn" type="button" onclick="alert('Uploaded (demo).');" style="min-width:160px; justify-content:center;">UPLOAD</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script src="js/verify.js"></script>
+</body>
+</html>

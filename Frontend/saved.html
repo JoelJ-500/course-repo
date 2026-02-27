@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CourseRepo - Saved Content</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <nav class="left">
+      <a class="nav-item" href="index.html" aria-label="Home">
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V21h14V9.8"/></svg>
+        </span>
+        <span class="label">Home</span>
+      </a>
+
+      <a class="nav-item" href="saved.html">
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        </span>
+        <span class="label">Saved content</span>
+      </a>
+
+      <a class="nav-item" href="add-course.html">
+        <span class="icon green" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
+        </span>
+        <span class="label">Add new course</span>
+      </a>
+    </nav>
+
+    <div class="right">
+      <span class="user" data-user>null</span>
+      <a href="login.html" onclick="localStorage.removeItem('cr_user');">Sign out</a>
+    </div>
+  </header>
+
+  <main class="container wide saved-layout">
+    <div style="display:flex; justify-content:center; align-items:center; gap:14px; margin-top:6px;">
+      <div class="saved-title">My Saved Content</div>
+      <span class="icon outline" aria-hidden="true" style="width:40px;height:40px; margin-top:8px;">
+        <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+      </span>
+    </div>
+
+    <section>
+      <div class="saved-group">
+        <span class="icon" aria-hidden="true" style="width:44px;height:44px;">
+          <svg viewBox="0 0 24 24" fill="#000"><path d="M4 4h10v10H4z"/><path d="M10 10h10v10H10z"/></svg>
+        </span>
+        <h2>Saved Courses</h2>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th><a href="#">Course Code 101</a></th>
+            <th>Course Title</th>
+            <th class="date-col">Date saved</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="course.html">CP 476</a></td>
+            <td>Internet Computing</td>
+            <td class="date-col">24-01-2026</td>
+          </tr>
+          <tr>
+            <td>Example ^</td>
+            <td></td>
+            <td class="date-col">DD-MM-YYYY</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="saved-group">
+        <span class="icon" aria-hidden="true" style="width:44px;height:44px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><path d="M6 2h9l3 3v17H6z"/><path d="M15 2v5h5"/><path d="M9 14h6"/><path d="M9 17h6"/></svg>
+        </span>
+        <h2>Saved Files</h2>
+      </div>
+
+      <div style="margin:8px 0 12px;">
+        <a href="#">Course Code 102</a> - Course Title
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th><a href="#">Filename with Link</a></th>
+            <th>File Description</th>
+            <th class="date-col">Date saved</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#">CP 476</a> - Course Title</td>
+            <td></td>
+            <td class="date-col"></td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#">CP476A-W26 - Project Outlines</a>
+            </td>
+            <td>Internet Computing Group<br/>Project Online</td>
+            <td class="date-col">24-01-2026</td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#">CP476_ Daraghmeh_W26 - Ver3</a>
+            </td>
+            <td>Internet Computing Course<br/>Outline</td>
+            <td class="date-col">24-01-2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>
