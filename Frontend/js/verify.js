@@ -29,6 +29,7 @@ async function verifyUser() {
 window.addEventListener('pageshow', function(event) {
     //attempt to prevent loading from cache
     if (!localStorage.getItem('cr_user')) {
+        console.log("hi");
         window.location.replace('login.html');
     }
     verifyUser();

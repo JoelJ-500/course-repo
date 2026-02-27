@@ -14,4 +14,8 @@ This folder contains static HTML pages styled to match the provided wireframes.
 - `upload-misc.html` — Standalone upload dialog (no Description)
 
 ## Run locally
-Open `index.html` directly, or run a tiny server:
+Run with a http server. For example:
+Install using 
+- npm http-server -g
+Run with
+- http-server
