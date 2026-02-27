@@ -1,7 +1,13 @@
 import Auth from "./auth.js";
+import Courses from "./courses.js";
+import Files from "./files.js";
 
 const Router = (server) => {
     server.use("/auth", Auth);
+
+    server.use("/courses", Courses)
+
+    server.use("/files", Files);
 
     server.get("/", (req, res) => {
         try {

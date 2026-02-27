@@ -27,9 +27,13 @@ async function verifyUser() {
 }
 
 window.addEventListener('pageshow', function(event) {
+    //skip if running locally
+    if (window.location.protocol === 'file:') {
+        return;
+    }
+
     //attempt to prevent loading from cache
     if (!localStorage.getItem('cr_user')) {
-        console.log("hi");
         window.location.replace('login.html');
     }
     verifyUser();
