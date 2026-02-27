@@ -16,6 +16,6 @@ This folder contains static HTML pages styled to match the provided wireframes.
 ## Run locally
 Run with a http server. For example:
 Install using 
-- npm install http-server -g
+`npm install http-server -g`
 Run with
-- http-server
+`http-server`
