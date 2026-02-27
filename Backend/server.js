@@ -7,7 +7,28 @@ import Router from "./routes/index.js";
 
 const server = express();
 
-server.use(cors());
+//You dont really know what port the frontend will be run from in testing so dynamically set it as long as it starts with localhost
+const corsOptions = {
+  origin: function (origin, callback) {
+    // 1. Allow requests with no origin (like mobile apps, curl, or Postman)
+    if (!origin) return callback(null, true);
+
+    // 2. Allow any localhost or 127.0.0.1 origin with any port
+    const localRegex = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+    
+    if (localRegex.test(origin)) {
+      callback(null, true);
+    } else {
+      // 3. For production, you'd add your real domain check here
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Required for cookies/sessions
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+server.use(cors(corsOptions));
 server.disable("x-powered-by");
 server.use(cookieParser());
 server.use(express.urlencoded({ extended: false }));
@@ -17,6 +38,14 @@ const startServer = async() => {
     await initDB();
 
     console.log("Database initialized");
+
+    //attempt to prevent caching which causes errors with logout
+    server.use((req, res, next) => {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+        next();
+    });
 
     Router(server);
     try {

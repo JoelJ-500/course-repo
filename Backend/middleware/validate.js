@@ -5,7 +5,9 @@ const Validate = (req, res, next) => {
     if (!errors.isEmpty()) {
         let error = {};
         errors.array().map((err) => (error[err.param] = err.msg));
-        return res.status(422).json({ error });
+        return res.status(422).json({ 
+            message: errors.array()[0].msg 
+        });
     }
     next();
 };

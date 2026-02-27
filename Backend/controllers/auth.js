@@ -61,7 +61,7 @@ export async function Login(req, res) {
             return res.status(401).json({
                 status: "failed",
                 data: [],
-                message: "Invalid email or password."
+                message: "Invalid username or password."
             });
         }
 
@@ -73,7 +73,7 @@ export async function Login(req, res) {
             return res.status(401).json({
                 status: "failed",
                 data: [],
-                message: "Invalid email or password."
+                message: "Invalid username or password."
             });
         }
 
@@ -82,6 +82,7 @@ export async function Login(req, res) {
             httpOnly: true,
             secure: true,
             sameSite: "None",
+            path: '/'
         };
         const token = generateAccessJWT(user.user_id);
         res.cookie("SessionID", token, options);
@@ -111,6 +112,7 @@ export async function Logout(req, res) {
             httpOnly: true,
             secure: true,
             sameSite: "None",
+            path: '/'
         });
 
         res.status(200).json({
