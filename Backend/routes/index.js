@@ -1,4 +1,5 @@
 import Auth from "./auth.js";
+import { Verify } from "../middleware/verify.js";
 
 const Router = (server) => {
     server.use("/auth", Auth);
@@ -16,7 +17,14 @@ const Router = (server) => {
                 message: "Internal Server Error",
             })
         }
-    })
+    });
+
+    server.get("/verify", Verify, (req, res) => {
+        res.status(200).json({
+            status: "success",
+            message: "Session successfully verified"
+        });
+    });
 };
 
 export default Router;

@@ -1,4 +1,5 @@
 import { pool } from "../config/db.js";
+import { generateAccessJWT } from "../utils/jwt.js";
 import bcrypt from "bcrypt"
 
 // POST auth/register
@@ -76,6 +77,15 @@ export async function Login(req, res) {
             });
         }
 
+        let options = {
+            maxAge: 24 * 60 * 60 * 1000, //24 hours in milliseconds
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+        };
+        const token = generateAccessJWT(user.user_id);
+        res.cookie("SessionID", token, options);
+
         //remove the password from the user data
         const { password_hash, ...user_data} = user;
 
@@ -92,5 +102,25 @@ export async function Login(req, res) {
             data: [],
             message: "Internal Server Error",
         });
+    }
+}
+
+export async function Logout(req, res) {
+    try {
+        res.clearCookie("SessionID", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+        });
+
+        res.status(200).json({
+            status: "success",
+            message: "You have been logged out successfully."
+        });
+    } catch {
+        res.status(500).json({
+            status: "error",
+            message: "Internal Server Error",
+        })
     }
 }
