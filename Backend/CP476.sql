@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `Courses` (
   `professor_name` varchar(100) DEFAULT NULL,
   `university_name` varchar(100) DEFAULT NULL,
   `last_updated_at` datetime DEFAULT current_timestamp(),
-  `difficulty_rating` tinyint(4) DEFAULT NULL,
+  `difficulty_rating` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='List of courses';
 
@@ -55,7 +55,7 @@ INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`
 VALUES (1,'soggy','$2b$10$2sUL3gytt/uGTUUFIr5Kx.ih6G79KYwveQLsVKirFTTUvFmaRiNR6','2026-02-26 02:20:38');
 
 INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`)
-VALUES (2,'banana','$2b$10$KnqzaZbq/O1fyD5oV4Z1BeApNJRXVrdXOOGeg.SnuNetFmBoxDjea','2026-02-26 02:20:47');
+VALUES (2,'banana','$2b$10$cbn.miGrcKRFvmrNbheycuZGR8JpYgHHrZA2K7CSj8VlH1SUVBmMK','2026-02-26 02:20:47');
 
 INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`)
 VALUES (3,'deleted','$2b$10$ZosuhFBbISlVnnmSoYU0IODd2GozsFGacgrOXD5WR6seFoDD0jB.a','2026-02-26 02:21:18');
