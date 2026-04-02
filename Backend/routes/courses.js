@@ -2,18 +2,19 @@ import express from "express";
 import { check } from "express-validator";
 import { Verify } from "../middleware/verify.js";
 import Validate from "../middleware/validate.js";
-import { CreateCourse, GetCourse, GetRecent, GetSaved, SearchCourses } from "../controllers/courses.js";
+import { CreateCourse, GetCourse, GetRecent, GetSaved, SearchCourses, GetCourseFiles, SaveCourse } from "../controllers/courses.js";
 
 const router = express.Router();
 
 router.get("/",
-    check("course_code")
+    check("course_id")
         .not()
         .isEmpty()
         .withMessage("Please enter a course code")
         .trim()
         .escape(),
-    Verify, Validate, GetCourse);
+    Verify, Validate, GetCourse
+);
 
 router.post("/create",
     check("course_code")
@@ -40,12 +41,40 @@ router.post("/create",
         .withMessage("Please enter a university name")
         .trim()
         .escape(),
-    Verify, Validate, CreateCourse);
+    Verify, Validate, CreateCourse
+);
+
+router.get("/files",
+    check("course_id")
+        .not()
+        .isEmpty()
+        .withMessage("Please enter a course id")
+        .trim()
+        .escape(),
+    Verify, Validate, GetCourseFiles
+)
+
+router.post("/save",
+    check("course_id")
+        .not()
+        .isEmpty()
+        .withMessage("Please enter a course id")
+        .trim()
+        .escape(),
+    Verify, Validate, SaveCourse
+)
 
 router.get("/saved", Verify, Validate, GetSaved);
 
 router.get("/recent", Verify, Validate, GetRecent);
 
-router.get("/search", Verify, Validate, SearchCourses);
+router.get("/search",
+    check("q")
+        .not()
+        .isEmpty()
+        .withMessage("Please enter a search term")
+        .trim()
+        .escape(),
+    Verify, Validate, SearchCourses);
 
 export default router;

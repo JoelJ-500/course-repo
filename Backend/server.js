@@ -5,8 +5,6 @@ import { PORT } from "./config/index.js";
 import { initDB } from "./config/db.js";
 import Router from "./routes/index.js";
 
-console.log(Date.now());
-
 const server = express();
 
 //You dont really know what port the frontend will be run from in testing so dynamically set it as long as it starts with localhost

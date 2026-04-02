@@ -116,6 +116,7 @@
     const title = qs('[data-modal-title]', modal);
     if(title) title.textContent = opts.title || 'Upload file';
   }
+
   function closeModal(){
     if(!overlay) return;
     overlay.classList.remove('open');
@@ -141,7 +142,6 @@
     uploadForm.addEventListener('submit', (e)=>{
       e.preventDefault();
       closeModal();
-      alert('Uploaded (demo). Hook this to your backend later.');
     });
   }
 
@@ -168,4 +168,121 @@ async function logout(e) {
   window.location.href = 'login.html';
 }
 
+document.addEventListener("DOMContentLoaded", async () => {
+
+  if (document.body.id === "course") {
+      //this gets the id from the url e.g., http://127.0.0.1:8080/course.html?id=1
+      const query_string = window.location.search;
+      const url_params = new URLSearchParams(query_string);
+
+      const course_id = url_params.get('id');
+
+      //get course information by id
+      const course_response = await fetch(`http://localhost:3000/courses?course_id=${course_id}`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const courses = await course_response.json();
+      console.log(courses.data);
+      
+      //get course files
+      const files_response = await fetch(`http://localhost:3000/courses/files?course_id=${course_id}`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const files = await files_response.json();
+      console.log(files.data);
+
+      //handle the file uploading
+      const fileInput = document.getElementById('fileInput');
+      const browseBtn = document.getElementById('browseBtn');
+      const fileNameDisplay = document.getElementById('fileNameDisplay');
+      const uploadForm = document.getElementById('uploadForm');
+
+      browseBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', () => {
+        fileNameDisplay.textContent = fileInput.files[0] ? fileInput.files[0].name : "No file chosen";
+      });
+
+      uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(uploadForm);
+
+        formData.append("course_id", course_id);
+
+        try {
+          const response = await fetch('http://localhost:3000/files/upload', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            alert('Upload successful!');
+            console.log(result);
+          } else {
+            alert('Upload failed.');
+          }
+        } catch (error) {
+          console.error('Error uploading file:', error);
+          alert('An error occurred during upload.');
+        }
+      });
+
+  } else if (document.body.id === "index") {
+
+    //get saved courses
+    const response = await fetch('http://localhost:3000/courses/saved', {
+      method: 'GET',
+      credentials: 'include'
+    });
+    const courses = await response.json();
+    console.log(courses.data);
+  } else if (document.body.id === "saved") {
+
+    //get saved courses
+    const course_response = await fetch(`http://localhost:3000/courses/saved`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const courses = await course_response.json();
+    console.log(courses.data);
+    
+    //get saved files
+    const files_response = await fetch(`http://localhost:3000/files/saved`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const files = await files_response.json();
+    console.log(files.data);
+  } else if (document.body.id === "search") {
+
+    const query_string = window.location.search;
+    const url_params = new URLSearchParams(query_string);
+
+    const search_term = url_params.get('q');
+
+    const search_response = await fetch(`http://localhost:3000/courses/search?q=${search_term}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const search_results = await search_response.json();
+    console.log(search_results.data);
+      
+
+    // IMPORTANT
+    // to implement saving here you need to make the save buttons make a post request to http://localhost:3000/courses/save with the body having json that looks like this
+    // {
+    // "course_id": 1
+    // }
+    // the number is whatever the course id is
+
+  }
+
+})
 

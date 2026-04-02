@@ -3,10 +3,19 @@ import { check } from "express-validator";
 import { Verify } from "../middleware/verify.js";
 import Validate from "../middleware/validate.js";
 import upload from "../middleware/upload.js";
-import { Upload, GetSaved } from "../controllers/file.js";
+import { GetFile, Upload, Download, GetSaved, SaveFile } from "../controllers/file.js";
 import fs from "fs";
 
 const router = express.Router();
+
+router.get("/",
+    check("file_id")
+        .not()
+        .isEmpty()
+        .withMessage("Please enter a file id")
+        .trim()
+        .escape(),
+    Verify, Validate, GetFile)
 
 router.post("/upload",
     Verify, Validate, (req, res, next) => {
@@ -16,13 +25,6 @@ router.post("/upload",
             //if an error occurs remove the folder created
             if (req.tempUploadFolder && fs.existsSync(req.tempUploadFolder)) {
                 fs.rmSync(req.tempUploadFolder, { recursive: true, force: true });
-            }
-
-            if (err.code === 'LIMIT_FILE_SIZE') {
-                return res.status(400).json({
-                    status: "error",
-                    message: "File too large"
-            });
             }
 
             return res.status(400).json({
@@ -35,6 +37,19 @@ router.post("/upload",
     }, 
     Upload);
 
+router.post("/save",
+    check("file_id")
+        .not()
+        .isEmpty()
+        .withMessage("Please enter a file id")
+        .trim()
+        .escape(),
+    Verify, Validate, SaveFile);
+
+
 router.get("/saved", Verify, Validate, GetSaved);
+
+router.get("/:id", Verify, Validate, Download);
+
 
 export default router;
