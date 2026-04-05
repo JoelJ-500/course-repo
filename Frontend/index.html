@@ -27,7 +27,7 @@
         <span class="icon green" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
         </span>
-        <span class="label">Add new course</span>
+        <span class="label">Create new course</span>
       </a>
     </nav>
 
@@ -39,7 +39,7 @@
 
   <main class="container">
     <section class="hero">
-      <h1 class="title">CourseRepo<span class="muted" style="font-size:20px">(Logo)</span></h1>
+      <h1 class="title">CourseRepo<span class="muted" style="font-size:20px"></span></h1>
 
       <div class="searchbar" role="search">
         <input data-home-search type="text" placeholder="Search CourseRepo for a course. Enter a course code or name to get started" aria-label="Search courses" />
@@ -48,30 +48,13 @@
       <div class="two-col">
         <div>
           <h2 class="section-title">Recently Viewed</h2>
-          <div class="card-table">
-            <div class="head"><span>Course Code -</span><span>Professor</span></div>
-            <div class="row">
-              <div><span class="course-code">CP476</span> - <span style="font-style:italic">Mustafa Daraghmeh</span></div>
-              <div class="course-title">Internet Computing</div>
-            </div>
-            <div class="row"><span class="muted">….</span></div>
-            <div class="row"><span class="muted">….</span></div>
+          <div class="card-table" id="recent">
           </div>
         </div>
 
         <div>
           <h2 class="section-title">Saved Courses</h2>
-          <div class="card-table">
-            <div class="head"><span>Course Code -</span><span>Professor</span></div>
-            <div class="row">
-              <div><span class="course-code">CP476</span> - <span style="font-style:italic">Mustafa Daraghmeh</span></div>
-              <div class="course-title">Internet Computing</div>
-            </div>
-            <div class="row">
-              <div><span class="course-code">CS50</span> - <span style="font-style:italic">David J. Malan</span></div>
-              <div class="course-title">Introduction to Computer Science</div>
-            </div>
-            <div class="row"><span class="muted">….</span></div>
+          <div class="card-table" id="saved">
           </div>
           <div class="center-link">
             <a href="saved.html">View all saved courses and materials</a>
@@ -82,6 +65,7 @@
   </main>
 
   <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
   <script src="js/verify.js"></script>
 
 </body>

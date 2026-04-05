@@ -67,15 +67,22 @@
     homeSearch.addEventListener('keydown', (e)=>{
       if(e.key==='Enter'){
         const q = homeSearch.value.trim();
-        window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+        if (q.length > 0) {
+          window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+        }
       }
     });
   }
   const resultsSearch = qs('[data-results-search]');
   if(resultsSearch){
-    const params = new URLSearchParams(window.location.search);
-    const q = params.get('q') || 'Example Search';
-    resultsSearch.value = q;
+    resultsSearch.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if (query.length > 0) {
+          window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
   }
 
   // Course difficulty star control
@@ -148,10 +155,44 @@
   // Add-course page fake submit
   const addCourseForm = qs('[data-add-course-form]');
   if(addCourseForm){
-    addCourseForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      window.location.href = 'course.html';
-    });
+    addCourseForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(addCourseForm);
+        const data = Object.fromEntries(formData.entries());
+
+        const allFieldsFilled = Object.values(data).every(value => value.trim() !== "");
+
+        if (!allFieldsFilled) {
+          alert("Please fill in all required fields.");
+          return;
+        }
+
+        try {
+          const response = await fetch('http://localhost:3000/courses/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            credentials: "include"
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            alert("Course created successfully!");
+            addCourseForm.reset();
+            console.log(result.data);
+            window.location.href = `course.html?id=${result.data[0].id}`
+          } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.message || 'Failed to create course'}`);
+          }
+        } catch (error) {
+          console.error("Submission error:", error);
+          alert("Could not connect to the server. Is your backend running?");
+        }
+      });
   }
 
 })();
@@ -170,119 +211,30 @@ async function logout(e) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-  if (document.body.id === "course") {
-      //this gets the id from the url e.g., http://127.0.0.1:8080/course.html?id=1
-      const query_string = window.location.search;
-      const url_params = new URLSearchParams(query_string);
+  const adminResponse = await fetch("http://localhost:3000/auth/admin", {
+    method: "GET",
+    credentials: "include"
+  });
 
-      const course_id = url_params.get('id');
+  if (adminResponse.ok) {
+    const navContainer = document.querySelector('nav.left');
 
-      //get course information by id
-      const course_response = await fetch(`http://localhost:3000/courses?course_id=${course_id}`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      const courses = await course_response.json();
-      console.log(courses.data);
-      
-      //get course files
-      const files_response = await fetch(`http://localhost:3000/courses/files?course_id=${course_id}`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      const files = await files_response.json();
-      console.log(files.data);
+    if (navContainer) {
+      const adminLink = document.createElement('a');
+      adminLink.className = 'nav-item';
+      adminLink.href = 'admin.html';
 
-      //handle the file uploading
-      const fileInput = document.getElementById('fileInput');
-      const browseBtn = document.getElementById('browseBtn');
-      const fileNameDisplay = document.getElementById('fileNameDisplay');
-      const uploadForm = document.getElementById('uploadForm');
+      adminLink.innerHTML = `
+        <span class="icon outline" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </span>
+        <span class="label">Admin Panel</span>
+      `;
 
-      browseBtn.addEventListener('click', () => {
-        fileInput.click();
-      });
-
-      fileInput.addEventListener('change', () => {
-        fileNameDisplay.textContent = fileInput.files[0] ? fileInput.files[0].name : "No file chosen";
-      });
-
-      uploadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(uploadForm);
-
-        formData.append("course_id", course_id);
-
-        try {
-          const response = await fetch('http://localhost:3000/files/upload', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include',
-          });
-
-          if (response.ok) {
-            const result = await response.json();
-            alert('Upload successful!');
-            console.log(result);
-          } else {
-            alert('Upload failed.');
-          }
-        } catch (error) {
-          console.error('Error uploading file:', error);
-          alert('An error occurred during upload.');
-        }
-      });
-
-  } else if (document.body.id === "index") {
-
-    //get saved courses
-    const response = await fetch('http://localhost:3000/courses/saved', {
-      method: 'GET',
-      credentials: 'include'
-    });
-    const courses = await response.json();
-    console.log(courses.data);
-  } else if (document.body.id === "saved") {
-
-    //get saved courses
-    const course_response = await fetch(`http://localhost:3000/courses/saved`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    const courses = await course_response.json();
-    console.log(courses.data);
-    
-    //get saved files
-    const files_response = await fetch(`http://localhost:3000/files/saved`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    const files = await files_response.json();
-    console.log(files.data);
-  } else if (document.body.id === "search") {
-
-    const query_string = window.location.search;
-    const url_params = new URLSearchParams(query_string);
-
-    const search_term = url_params.get('q');
-
-    const search_response = await fetch(`http://localhost:3000/courses/search?q=${search_term}`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    const search_results = await search_response.json();
-    console.log(search_results.data);
-      
-
-    // IMPORTANT
-    // to implement saving here you need to make the save buttons make a post request to http://localhost:3000/courses/save with the body having json that looks like this
-    // {
-    // "course_id": 1
-    // }
-    // the number is whatever the course id is
-
+      navContainer.appendChild(adminLink);
+    }
   }
-
 })
 

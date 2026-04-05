@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `username` varchar(50) NOT NULL,
   `password_hash` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
+  `is_admin` BOOL DEFAULT 0 NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `Users_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='List of users';

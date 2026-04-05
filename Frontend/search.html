@@ -27,7 +27,7 @@
         <span class="icon green" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
         </span>
-        <span class="label">Add new course</span>
+        <span class="label">Create new course</span>
       </a>
     </nav>
 
@@ -41,8 +41,15 @@
     <div class="results-layout">
       <aside class="filters">
         <h2>Filters</h2>
-        <button class="filter-btn" type="button"><span class="caret">▼</span> University</button>
-        <button class="filter-btn" type="button"><span class="caret">▼</span> Most Recent</button>
+        <select class="filter-btn" id="universities">
+          <option value="" selected disabled hidden>Universities</option>
+        </select>
+        <select class="filter-btn" id="sort">
+          <option value="" selected disabled hidden>Sort</option>
+          <option value="newest">Newest</option>
+          <option value="code_asc">Ascending</option>
+          <option value="code_desc">Descending</option>
+        </select>
       </aside>
 
       <section class="results">
@@ -53,56 +60,13 @@
           <input data-results-search type="text" aria-label="Search" />
         </div>
 
-        <div class="result-item">
-          <div>
-            <div class="name">Example Course 1</div>
-            <div class="desc">Example course description</div>
-            <div class="meta"><span class="muted">&nbsp;</span><a href="course.html">View Content</a></div>
-          </div>
-          <div class="add">
-            <button title="Add course" aria-label="Add course">
-              <span class="icon green" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <div class="result-item">
-          <div>
-            <div class="name">Example Course 2</div>
-            <div class="desc">Example course description</div>
-            <div class="meta"><span class="muted">&nbsp;</span><a href="course.html">View Content</a></div>
-          </div>
-          <div class="add">
-            <button title="Add course" aria-label="Add course">
-              <span class="icon green" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <div class="result-item">
-          <div>
-            <div class="name">Example Course 3</div>
-            <div class="desc">&nbsp;</div>
-            <div class="meta"><span class="muted">&nbsp;</span><a href="course.html">View Content</a></div>
-          </div>
-          <div class="add">
-            <button title="Add course" aria-label="Add course">
-              <span class="icon green" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
-              </span>
-            </button>
-          </div>
-        </div>
-
+        
       </section>
     </div>
   </main>
 
   <script src="js/app.js"></script>
+  <script src="js/search.js"></script>
   <script src="js/verify.js"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@
         <span class="icon green" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
         </span>
-        <span class="label">Add new course</span>
+        <span class="label">Create new course</span>
       </a>
     </nav>
 
@@ -56,22 +56,12 @@
       <table class="table">
         <thead>
           <tr>
-            <th><a href="#">Course Code 101</a></th>
+            <th>Course Code 101</th>
             <th>Course Title</th>
             <th class="date-col">Date saved</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><a href="course.html">CP 476</a></td>
-            <td>Internet Computing</td>
-            <td class="date-col">24-01-2026</td>
-          </tr>
-          <tr>
-            <td>Example ^</td>
-            <td></td>
-            <td class="date-col">DD-MM-YYYY</td>
-          </tr>
+        <tbody id="saved-courses-body">
         </tbody>
       </table>
     </section>
@@ -84,44 +74,23 @@
         <h2>Saved Files</h2>
       </div>
 
-      <div style="margin:8px 0 12px;">
-        <a href="#">Course Code 102</a> - Course Title
-      </div>
-
       <table class="table">
         <thead>
           <tr>
-            <th><a href="#">Filename with Link</a></th>
+            <th>Filename with Link</th>
             <th>File Description</th>
+            <th>Course</th>
             <th class="date-col">Date saved</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><a href="#">CP 476</a> - Course Title</td>
-            <td></td>
-            <td class="date-col"></td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#">CP476A-W26 - Project Outlines</a>
-            </td>
-            <td>Internet Computing Group<br/>Project Online</td>
-            <td class="date-col">24-01-2026</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#">CP476_ Daraghmeh_W26 - Ver3</a>
-            </td>
-            <td>Internet Computing Course<br/>Outline</td>
-            <td class="date-col">24-01-2026</td>
-          </tr>
+        <tbody id="saved-files-body">
         </tbody>
       </table>
     </section>
   </main>
 
   <script src="js/app.js"></script>
+  <script src="js/saved.js"></script>
   <script src="js/verify.js"></script>
 </body>
 </html>

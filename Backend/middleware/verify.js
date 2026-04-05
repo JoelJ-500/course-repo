@@ -39,3 +39,27 @@ export async function Verify(req, res, next) {
         });   
     }
 }
+
+export async function isAdmin(req, res, next) {
+
+    try {
+        const [users] = await pool.execute(
+            `SELECT is_admin FROM Users WHERE user_id = '${req.user.user_id}'` 
+        );
+        
+        if (!users[0].is_admin) {
+            return res.sendStatus(401);
+        }
+
+        next();
+
+    } catch (err) {
+        console.error("Verification Error:", err);
+        res.status(500).json({
+            status: "error",
+            code: 500,
+            message: "Internal Server Error",
+        });   
+    }
+
+}

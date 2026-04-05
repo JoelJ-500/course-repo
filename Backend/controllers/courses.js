@@ -106,19 +106,35 @@ export async function GetRecent(req, res) {
 
 export async function SearchCourses(req, res) {
     try {
-        const { q } = req.query;
-        console.log(req.query)
+        const { q, university, sortBy } = req.query;
+
+        const sortOptions = {
+            "code_asc": "course_code ASC",
+            "code_desc": "course_code DESC",
+            "newest": "course_id DESC"
+        };
+
+        const orderBy = sortOptions[sortBy] || "course_code ASC";
 
         const queryTerm = `%${q}%`;
 
-        const [courses] = await pool.execute(
-            `SELECT * FROM Courses 
-             WHERE course_code LIKE ? 
-             OR course_title LIKE ? 
-             OR professor_name LIKE ?
-             OR university_name LIKE ?`,
-            [queryTerm, queryTerm, queryTerm, queryTerm]
-        );
+        let sql = `SELECT * FROM Courses WHERE (
+                        course_code LIKE ? 
+                        OR course_title LIKE ? 
+                        OR professor_name LIKE ?
+                        OR university_name LIKE ?
+                    )`;
+
+        const params = [queryTerm, queryTerm, queryTerm, queryTerm];
+
+        if (university) {
+            sql += ` AND university_name = ?`;
+            params.push(university);
+        }
+
+        sql += ` ORDER BY ${orderBy}`;
+
+        const [courses] = await pool.execute(sql, params);
 
         res.status(200).json({
             status: "success",
@@ -189,8 +205,6 @@ export async function SaveCourse(req, res) {
             });
         }
 
-        
-
         const [saved] = await pool.execute(
             `SELECT * FROM SavedItems WHERE course_id = '${course_id}' AND user_id = '${req.user.user_id}' AND item_type = 'course'`
         )
@@ -230,4 +244,70 @@ export async function SaveCourse(req, res) {
         });
     }
 
+}
+
+export async function GetUniversities(req, res) {
+    try {
+
+        const [universities] = await pool.execute(
+            `SELECT DISTINCT university_name FROM Courses;`
+        )
+
+        res.status(200).json({
+            status: "success",
+            data: universities
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            status: "error",
+            code: 500,
+            data: [],
+            message: "Internal Server Error",
+        });
+    }
+}
+
+export async function deleteCourse(req, res) {
+    const course_id = req.params.id;
+
+    try {
+
+        const [courses] = await pool.execute(
+            `SELECT * FROM Courses WHERE course_id = '${course_id}'`
+        );
+
+        if (courses.length === 0) {
+            return res.status(401).json({
+                status: "failed",
+                data: [],
+                message: "Course does not exist."
+            });
+        }
+
+        const course = courses[0];
+
+        const [result] = await pool.execute(
+            `DELETE FROM Courses WHERE course_id = ${course_id}`
+        )
+
+        const [resultSaved] = await pool.execute(
+            `DELETE FROM SavedItems WHERE course_id = ${course_id}`
+        )
+
+        res.status(200).json({
+            status: "success",
+            message: `Successfully deleted course ${course.course_code}`
+        })
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            status: "error",
+            code: 500,
+            data: [],
+            message: "Internal Server Error",
+        });
+    }
 }

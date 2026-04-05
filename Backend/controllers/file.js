@@ -19,6 +19,11 @@ export async function GetFile(req, res) {
             });
         }
 
+        res.status(200).json({
+            status: "success",
+            data: files[0]
+        });
+
 
     } catch (err) {
         console.error(err);
@@ -229,6 +234,50 @@ export async function GetSaved(req, res) {
         res.status(200).json({
             status: "success",
             data: files
+        })
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            status: "error",
+            code: 500,
+            data: [],
+            message: "Internal Server Error",
+        });
+    }
+}
+
+export async function deleteFile(req, res) {
+    const file_id = req.params.id;
+
+    try {
+
+        const [files] = await pool.execute(
+            `SELECT * FROM CourseFiles WHERE file_id = '${file_id}'`
+        );
+
+        if (files.length === 0) {
+            return res.status(401).json({
+                status: "failed",
+                data: [],
+                message: "File does not exist."
+            });
+        }
+
+        const file = files[0];
+
+        const [result] = await pool.execute(
+            `DELETE FROM CourseFiles WHERE file_id = ${file_id}`
+        )
+
+        const [resultSaved] = await pool.execute(
+            `DELETE FROM SavedItems WHERE file_id = ${file_id}`
+        )
+
+
+        res.status(200).json({
+            status: "success",
+            message: `Successfully deleted file ${file.display_name}`
         })
 
     } catch (err) {

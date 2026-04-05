@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CourseRepo - Add New Course</title>
+  <title>CourseRepo - Create New Course</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body id="add-course">
@@ -27,7 +27,7 @@
         <span class="icon green" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M10.5 3h3v18h-3z"/><path d="M3 10.5h18v3H3z"/></svg>
         </span>
-        <span class="label">Add new course</span>
+        <span class="label">Create new course</span>
       </a>
     </nav>
 
@@ -38,20 +38,20 @@
   </header>
 
   <main class="container">
-    <p class="muted">*Beautify layout</p>
-    <p class="muted">* Course code and prof, are the ids of each course</p>
-
     <section class="form-center">
       <form data-add-course-form>
         <div class="form-grid">
           <div class="label-right">Course Code:</div>
-          <input class="text-input" type="text" placeholder="Enter course code" />
+          <input name="course_code" class="text-input" type="text" placeholder="Enter course code" />
+
+          <div class="label-right">Course Title:</div>
+          <input name="course_title" class="text-input" type="text" placeholder="Enter course title" />
 
           <div class="label-right">University:</div>
-          <input class="text-input" type="text" placeholder="Enter university name" />
+          <input name="university_name" class="text-input" type="text" placeholder="Enter university name" />
 
           <div class="label-right">Professor:</div>
-          <input class="text-input" type="text" placeholder="Enter professor name" />
+          <input name="professor_name" class="text-input" type="text" placeholder="Enter professor name" />
         </div>
 
         <div class="btn-wrap">

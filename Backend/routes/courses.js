@@ -1,8 +1,8 @@
 import express from "express";
 import { check } from "express-validator";
-import { Verify } from "../middleware/verify.js";
+import { Verify, isAdmin } from "../middleware/verify.js";
 import Validate from "../middleware/validate.js";
-import { CreateCourse, GetCourse, GetRecent, GetSaved, SearchCourses, GetCourseFiles, SaveCourse } from "../controllers/courses.js";
+import { CreateCourse, GetCourse, GetRecent, GetSaved, SearchCourses, GetCourseFiles, SaveCourse, GetUniversities, deleteCourse } from "../controllers/courses.js";
 
 const router = express.Router();
 
@@ -76,5 +76,9 @@ router.get("/search",
         .trim()
         .escape(),
     Verify, Validate, SearchCourses);
+
+router.get("/universities", Verify, Validate, GetUniversities);
+
+router.delete("/:id", Verify, Validate, isAdmin, deleteCourse);
 
 export default router;

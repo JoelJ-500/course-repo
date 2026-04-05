@@ -2,7 +2,7 @@ import express from "express";
 import { Register, Login, Logout } from "../controllers/auth.js";
 import Validate from "../middleware/validate.js";
 import { check } from "express-validator";
-import { Verify } from "../middleware/verify.js";
+import { Verify, isAdmin } from "../middleware/verify.js";
 
 const router = express.Router();
 
@@ -47,6 +47,13 @@ router.get("/verify", Verify, (req, res) => {
         message: "Session successfully verified"
     });
 });
+
+router.get("/admin", Verify, isAdmin, (req, res) => {
+    res.status(200).json({
+        status: "success",
+        message: "Account has admin priveleges"
+    });
+})
 
 router.get("/logout", Logout);
 

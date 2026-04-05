@@ -1,9 +1,9 @@
 import express from "express";
 import { check } from "express-validator";
-import { Verify } from "../middleware/verify.js";
+import { Verify, isAdmin } from "../middleware/verify.js";
 import Validate from "../middleware/validate.js";
 import upload from "../middleware/upload.js";
-import { GetFile, Upload, Download, GetSaved, SaveFile } from "../controllers/file.js";
+import { GetFile, Upload, Download, GetSaved, SaveFile, deleteFile } from "../controllers/file.js";
 import fs from "fs";
 
 const router = express.Router();
@@ -50,6 +50,8 @@ router.post("/save",
 router.get("/saved", Verify, Validate, GetSaved);
 
 router.get("/:id", Verify, Validate, Download);
+
+router.delete("/:id", Verify, Validate, isAdmin, deleteFile);
 
 
 export default router;
