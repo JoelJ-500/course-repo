@@ -19,22 +19,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     const courses = await course_response.json();
 
     //add course to recently viewed
-    const username = localStorage.getItem('cr_user');
-    
-    const storageKey = `recent_viewed_${username}`;
 
-    const rawData = localStorage.getItem(storageKey);
-    let history = rawData ? JSON.parse(rawData) : [];
+    if (course_response.ok) {
+        const username = localStorage.getItem('cr_user');
+        
+        const storageKey = `recent_viewed_${username}`;
 
-    history = history.filter(course => course.course_id !== courses.data.course_id);
+        const rawData = localStorage.getItem(storageKey);
+        let history = rawData ? JSON.parse(rawData) : [];
 
-    history.unshift(courses.data);
-    
-    if (history.length > 5) {
-        history = history.slice(0, 5);
+        history = history.filter(course => course.course_id !== courses.data.course_id);
+
+        history.unshift(courses.data);
+        
+        if (history.length > 5) {
+            history = history.slice(0, 5);
+        }
+
+        localStorage.setItem(storageKey, JSON.stringify(history));
     }
-
-    localStorage.setItem(storageKey, JSON.stringify(history));
+    
     
     //get course files
     const files_response = await fetch(`http://localhost:3000/courses/files?course_id=${course_id}`, {
@@ -77,8 +81,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             uploadForm.reset();
             location.reload();
 
-            console.log(result);
-
             } else {
             alert('Upload failed.');
             }
@@ -120,7 +122,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     bookmark_button.addEventListener('click', async () => {
                 try {
-                console.log("hi`")
                 const response = await fetch('http://localhost:3000/courses/save', {
                     method: 'POST',
                     headers: {

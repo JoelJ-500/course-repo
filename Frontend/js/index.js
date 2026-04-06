@@ -5,18 +5,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       credentials: 'include'
     });
     const courses = await response.json();
-    console.log(courses.data);
 
     const username = localStorage.getItem('cr_user');
-
-    console.log(username)
 
     const storageKey = `recent_viewed_${username}`;
   
     const rawData = localStorage.getItem(storageKey);
     const recentCourses = rawData ? JSON.parse(rawData) : [];
-
-    console.log(recentCourses)
 
     const recentTable = document.querySelector('#recent');
     recentCourses.forEach(course => {
@@ -45,8 +40,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
 
         const course_data = await course_response.json()
-
-        console.log(course_data.data)
 
         const row = document.createElement('div');
         row.classList.add('row');

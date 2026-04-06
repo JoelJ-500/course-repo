@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS `SavedItems` (
 INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`)
 VALUES (1,'soggy','$2b$10$2sUL3gytt/uGTUUFIr5Kx.ih6G79KYwveQLsVKirFTTUvFmaRiNR6','2026-02-26 02:20:38');
 
-INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`)
-VALUES (2,'banana','$2b$10$cbn.miGrcKRFvmrNbheycuZGR8JpYgHHrZA2K7CSj8VlH1SUVBmMK','2026-02-26 02:20:47');
+INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`, `is_admin`)
+VALUES (2,'banana','$2b$10$cbn.miGrcKRFvmrNbheycuZGR8JpYgHHrZA2K7CSj8VlH1SUVBmMK','2026-02-26 02:20:47', 1);
 
 INSERT IGNORE INTO `Users` (`user_id`, `username`, `password_hash`, `created_at`)
 VALUES (3,'deleted','$2b$10$ZosuhFBbISlVnnmSoYU0IODd2GozsFGacgrOXD5WR6seFoDD0jB.a','2026-02-26 02:21:18');
